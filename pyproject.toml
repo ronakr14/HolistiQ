@@ -1,0 +1,23 @@
+[project]
+name = "holistiq"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Ronak Rathore",email = "ronak.rathore05@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "custom-logger @ git+https://github.com/ronakr14/custom_logger.git",
+    "pyyaml (>=6.0.3,<7.0.0)",
+    "python-dotenv (>=1.2.2,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.scripts]
+holistiq = "holistiq:main"
