@@ -21,13 +21,12 @@ _SUPPORTED = ("argparse",)
 
 
 def get_adapter() -> BaseCLIAdapter:
-
     backend = os.environ.get("HOLISTIQ_CLI", "argparse").lower().strip()
 
     if backend not in _SUPPORTED:
         raise ValueError(
             f"Unknown CLI backend '{backend}'. "
-            f"Set HOLISTIQ_CLI to one of: {', '.join(_SUPPORTED)}"
+            f"Set HOLISTIQ_CLI env variable to one of: {', '.join(_SUPPORTED)}"
         )
 
     from core.cli_tool.argparse_adapter import ArgparseAdapter

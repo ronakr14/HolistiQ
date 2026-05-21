@@ -1,0 +1,24 @@
+CREATE TABLE testcases (
+    id SERIAL PRIMARY KEY,
+
+    filepath VARCHAR(512) NOT NULL,
+    module VARCHAR(256) NOT NULL,
+    class VARCHAR(256),
+    test_case VARCHAR(256) NOT NULL,
+
+    setup BOOLEAN NOT NULL DEFAULT FALSE,
+    setupall BOOLEAN NOT NULL DEFAULT FALSE,
+    teardown BOOLEAN NOT NULL DEFAULT FALSE,
+    teardownall BOOLEAN NOT NULL DEFAULT FALSE,
+
+    contenthash VARCHAR(128) NOT NULL,
+
+    published_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    published_by VARCHAR(128) NOT NULL,
+
+    updated_date DATETIME,
+    updated_by VARCHAR(128),
+
+    insertdate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    branch VARCHAR(256) NOT NULL
+);

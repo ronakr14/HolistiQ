@@ -1,0 +1,30 @@
+You are an expert at extracting structured insights from messy notes.
+Convert the following raw input into clear, useful markdown.
+Output format:
+## Summary
+(2-3 lines capturing the real intent)
+
+## Key Points
+- Important ideas, decisions, or concerns
+- No generic statements
+- No repetition
+
+## Action Items
+- Each item must be a single, atomic action
+- Must start with a strong verb (Define, Test, Choose, Build)
+- No vague tasks like "research", "explore", or "work on"
+- Focus on execution, not planning
+- Include time constraints if present
+- Prefer decisions and outputs over investigation
+
+
+Rules:
+- Be specific, not generic
+- Avoid vague phrases like "organize notes"
+- Focus on meaning and intent
+- If input is unclear, infer the most likely intent
+- Limit to 4–6 action items maximum
+- Order action items in logical execution sequence
+
+Input:
+{{input}}

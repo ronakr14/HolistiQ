@@ -1,0 +1,102 @@
+deid:
+  client: Nitor
+  data_path: D:\HolistiQ\.data\
+  file_format: csv
+  token_length: 72
+  token_file_prefix: token
+  masked_file_prefix: deidentified
+
+  tokenizer_schema:
+    id: id
+    first_name: first_name
+    last_name: last_name
+    dob: date of birth
+    zip: zip
+    gender: gender
+    email: email
+    addr1: addr1
+    addr2: addr2
+    phone: phone
+    city: city
+
+  derived_fields:
+    zip_str:
+      from: zip
+      transform: stringify
+    dob_str:
+      from: dob
+      transform: stringify
+    dob_parsed:
+      from: dob
+      transform: date_parse(%m/%d/%Y)
+    dob_year:
+      from: dob_parsed
+      transform: year
+    dob_month:
+      from: dob_parsed
+      transform: month
+
+  clients:
+    NITOR:
+      enabled_versions: [v2.1]
+      feature_flags:
+        - exact
+        - phonetic
+        - relaxed
+
+  tokens_cfg:
+    - name: token_1
+      version: v2.1
+      family: exact
+      parts: [masked_id, last_name, first_name, dob_str, zip]
+
+    - name: token_2
+      version: v2.1
+      family: relaxed
+      parts: [masked_id, first_name, last_name, dob_str, gender, zip:2]
+
+    - name: token_3
+      version: v2.1
+      family: relaxed
+      parts: [masked_id, last_name, first_name:3, gender, dob_str, zip:3]
+
+    - name: token_4
+      version: v2.1
+      family: relaxed
+      parts: [masked_id, last_name, first_name, dob_str, zip:3]
+
+    - name: token_5
+      version: v2.1
+      family: exact
+      parts: [masked_id, last_name, first_name, gender, zip, dob_year, dob_month]
+
+    - name: token_6
+      version: v2.1
+      family: exact
+      parts: [masked_id, last_name, first_name, gender, dob_str]
+
+    - name: token_7
+      version: v2.1
+      family: phonetic
+      parts: [masked_id, soundex:last_name, soundex:last_name, gender, dob_str]
+
+    - name: token_8
+      version: v2.1
+      family: relaxed
+      parts: [masked_id, last_name, first_name:3, gender, dob_str]
+
+    - name: token_9
+      version: v2.1
+      family: relaxed
+      parts: [masked_id, last_name, first_name:1, gender, dob_str]
+
+  detokenizer_schema:
+    tokenid: tokenid
+    process_cols: ['tokenid', 'token_name', 'token_hash']
+
+  invalid_token_patterns:
+    - XXX
+    - missing_token
+
+  defaults:
+    null_token_order: 999999

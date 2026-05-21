@@ -1,0 +1,12 @@
+exclude_filenames:
+  - "__init__.py"
+exclude_prefixes:
+  - "test_"
+exlcude_directories:
+  - ".git"
+enable_llm_analysis: false
+# llm_api_key:
+# llm_max_concurrent: 3
+
+# generate_markdown: false
+# generate_html: false

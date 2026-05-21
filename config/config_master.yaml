@@ -1,0 +1,84 @@
+# ==========================================================
+#                CONFIGURATION PARAMETERS
+# ==========================================================
+# This configuration file defines parameters for parallel execution,
+# database connections, and various operational modules such as
+# testops, sqlops, dataops, aiops, autoops
+# all parametes will be added here but commented under relevant sections.
+# ----------------------------------------------------------
+
+# ----------------------------------------------------------
+#           PARALLEL EXECUTION SETTINGS
+# ----------------------------------------------------------
+# Controls parallel thread behavior across operations.
+parallel:
+  thread: 8                             # Number of threads, Default: 8, Disable parallelism: 1
+
+
+# ----------------------------------------------------------
+#           DATABASE CONNECTION PARAMETERS
+# ----------------------------------------------------------
+# Define all your database connections here.
+# Each connection alias (e.g., `tw_db`, `temp_db`) can be referenced
+# by name under other sections (like `sqlops.conn` or `migrate.source_conn, etc`).
+# password should be given in .env file with {alias}_pass = password
+db:
+  tw_db:                              # connection alias
+    type: postgres                    # database type
+    host: ep-fragrant-pond-a8l9wh5o-pooler.eastus2.azure.neon.tech  # host
+    port: 5432                        # port
+    user: neondb_owner                # username
+    db: holistiq                      # database
+
+  fallback_tw_db:
+    type: sqlite
+    host: D:/HolistiQ/.db/holistiq
+    db: testops
+
+
+# ----------------------------------------------------------
+#           TESTOPS SETTINGS
+# ----------------------------------------------------------
+# Used only when publishing test cases or storing test results.
+testops:
+  conn: fallback_tw_db                # Must match a key under `db`.
+
+
+# ----------------------------------------------------------
+#           SQLOPS SETTINGS
+# ----------------------------------------------------------
+# Used for executing SQL queries on a database.
+sqlops:
+  conn: tw_db                         # Must match a key under `db`.
+  encoding: utf-8                     # Encoding to use while connecting to a db.
+
+
+# ----------------------------------------------------------
+#           MIGRATION SETTINGS - DATAOPS
+# ----------------------------------------------------------
+# Defines dataops migration parameters for data transfer between databases.
+migrate:  # this will be used as a reference in dataops.operation
+  source_conn: tw_db                  # Must match a key under `db`
+  target_conn: fallback_tw_db         # Must match a key under `db`
+  # schemas: "testops"                # Optional: specify schemas
+  # tables: "testops"                 # Optional: specify tables
+  prefix: false                       # Optional: only needed if target_conn does not support schema
+  batch_size: 1000                    # Number of records per batch
+  mapping_path: "./mappings"          # Path to mapping files. Check templates/dataops/migrate/mappings.yml to create own mapping file.
+
+
+# ----------------------------------------------------------
+#           GDRIVE SYNC SETTINGS - AUTOOPS
+# ----------------------------------------------------------
+# Defines autoops gdrive sync operation parameters
+gdrive_sync:
+  sync_interval: 30                 # Interval in seconds
+  local_debounce_seconds: 1         # Debounce time for local file changes
+  ignore_patterns:                  # List of file patterns to ignore
+    - ".git/"
+    - ".DS_Store"
+    - "node_modules/"
+    - "~$*"
+    - "*.tmp"
+    - "*.TMP"
+    - "*~RF*"
