@@ -5,7 +5,7 @@ from typing import List, Optional, Tuple, Union
 import git
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from libs.mixers.logger_mixin import get_logger
+from custom_logger.logging_util import get_logger
 
 logger = get_logger("Git", component="Utils")
 

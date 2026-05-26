@@ -1,0 +1,68 @@
+# cli2api/__init__.py
+from .decorators import expose
+from .app import create_app
+
+
+# examples/sample_app.py
+from cli2api import expose, create_app
+
+@expose(async_task=True)
+def process(a: int, b: int):
+    return a + b
+
+app = create_app()
+
+
+# app.py
+from fastapi import FastAPI
+from registry import ROUTES
+
+def create_app():
+    app = FastAPI()
+
+    for config in ROUTES.values():
+        endpoint = create_endpoint(config)
+
+        app.add_api_route(
+            config["path"],
+            endpoint,
+            methods=[config["method"]],
+        )
+
+    return app
+
+
+# app.py
+from celery.result import AsyncResult
+from worker import celery_app
+
+@app.get("/tasks/{task_id}")
+def get_status(task_id: str):
+    result = AsyncResult(task_id, app=celery_app)
+
+    return {
+        "status": result.status,
+        "result": result.result
+    }
+
+
+hash = sha256(json.dumps(kwargs))
+
+
+
+from cli2api import expose
+
+@expose
+def process_data(a: int, b: int):
+    return a * b
+
+
+from pydantic import BaseModel
+
+class RouteConfig(BaseModel):
+    name: str
+    path: str
+    method: str
+    auth: bool = True
+    rate_limit: int = 10
+    async_task: bool = False

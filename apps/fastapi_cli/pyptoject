@@ -1,0 +1,15 @@
+[project]
+name = "cli2api"
+version = "0.1.0"
+description = "Expose Python functions as CLI, API, and async jobs"
+authors = [{name = "Your Name"}]
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "typer",
+    "redis",
+    "celery",
+]
+
+[project.scripts]
+cli2api = "cli2api.cli:app"
