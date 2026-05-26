@@ -2,7 +2,7 @@ import sys
 from itertools import zip_longest
 from typing import Any, Dict, Iterator, List, Optional, Union
 
-from libs.mixers.logger_mixin import get_logger
+from custom_logger.logging_util import get_logger
 
 logger = get_logger("Row Col", component="Utils")
 

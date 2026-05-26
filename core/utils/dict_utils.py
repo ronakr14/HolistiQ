@@ -1,7 +1,7 @@
 from argparse import Namespace
 from typing import Any, Dict, List, Union
 
-from libs.mixers.logger_mixin import get_logger
+from custom_logger.logging_util import get_logger
 
 logger = get_logger("Dict", component="Utils")
 

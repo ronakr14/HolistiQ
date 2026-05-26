@@ -1,0 +1,24 @@
+# config.yaml
+
+app:
+  name: "cli2api-app"
+  version: "1.0"
+
+defaults:
+  auth: true
+  rate_limit: 10
+  async_task: false
+  idempotency: true
+
+routes:
+  - name: process_data
+    path: /process
+    method: POST
+    async_task: true
+    rate_limit: 5
+
+  - name: health
+    path: /health
+    method: GET
+    auth: false
+    rate_limit: 100
