@@ -51,7 +51,7 @@ from typing import (
     Type,
 )
 
-from libs.mixers.logger_mixin import get_logger
+from custom_logger.logging_util import get_logger
 
 logger = get_logger("Retry", component="Utils")
 

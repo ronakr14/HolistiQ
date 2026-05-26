@@ -11,7 +11,7 @@ from contextlib import contextmanager
 from functools import partial
 from typing import Any, Callable, Optional
 
-from core.infrastructure.observability.logging.logging_util import get_logger
+from custom_logger.logging_util import get_logger
 
 logger = get_logger(__name__)
 
