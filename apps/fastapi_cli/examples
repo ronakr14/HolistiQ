@@ -66,3 +66,30 @@ class RouteConfig(BaseModel):
     auth: bool = True
     rate_limit: int = 10
     async_task: bool = False
+
+
+    before_request   → modify/validate input
+after_response   → modify output
+on_error         → handle exceptions
+on_startup       → init resources (optional)
+
+
+app:
+  name: cli2api-app
+
+plugins:
+  - name: logging
+  - name: auth
+  - name: rate_limit
+  - name: idempotency
+
+routes:
+  - name: process_data
+    path: /process
+    method: POST
+    plugins: [auth, rate_limit, idempotency]
+
+  - name: health
+    path: /health
+    method: GET
+    plugins: [logging]
