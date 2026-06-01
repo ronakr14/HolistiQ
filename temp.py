@@ -10,8 +10,6 @@ def main():
         print("Loop:", i)
     print("Result:", result)
     names = ["Ronak", "Alex", "Sam"]
-    for n in names:
-        print("Processing", n)
 
 
 if __name__ == "__main__":
